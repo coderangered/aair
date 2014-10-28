@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head> 
+    <title>FRiaa</title> 
+	<script src="AIRAliases.js" type="text/javascript"></script>
+	<script src="functions.js" type="text/javascript"></script>
+	<script src="callbacks.js" type="text/javascript"></script>
+	<script src="classes.js" type="text/javascript"></script>
+	<script src="default.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="./style.css" />
+
+
+	<script type="text/javascript"> 
+	function appLoad()
+	{ 
+	
+		document.body.onmousedown = function(e)
+		{
+			if((e.target.tagName != 'INPUT') && (e.target.id != "results") && (e.target.id != "flvplayer")) 
+			{
+
+				nativeWindow.startMove();
+				
+			}
+		};
+		
+		air.trace("Friaa loaded"); 
+
+	}
+	//var preview = new ytParse("RwwlZdP5MLE", "mine", "mp4", ytCallback); //not live //var timestamp = td.getTime();
+	var newLoader =  new air.HTMLLoader(); // do it live
+	
+	
+	var vertOffsetConst = 88;
+	var mPlayer = new mediaPlayer(playClip);
+	var extraContent = new extraCon(exCallback);
+	var favorites = new fav(favCallback);
+	favorites.load();
+	var downloadMan = new Array();
+	var slikepath = new Array();
+
+	/* GLOBAL CONFIG VARS */
+	var $_CONFIG_PLAYLISTMODE = 0; // 0=mix, 1=fav
+	var $_TWITTER_U = "tu333"; // just temporary for testing
+	var $_TWITTER_PW= "analog";
+	var $_TOGGLE_SN = "t";
+</script>
+</head> 
+
+
+
+<body onLoad="appLoad()" > 
+
+	<div id="container">
+		<div id="header" onClick="document.getElementById('sfield').select();">
+		<div id="ctrl">
+		<div id="ctrl_size" onclick="nativeWindow.minimize();">&nbsp;</div>
+		<div id="ctrl_close" onclick="favorites.save(); air.NativeApplication.nativeApplication.exit();">&nbsp;</div>
+		</div>
+			<form id="inputform" onsubmit="keyPressed(); return false;">
+				
+				<input id="sfield" type="text" size="25" maxlength="50" />  
+				<div id="searchbutton" type="button" class="inputbutton" onclick="keyPressed();"> </div>
+				<div id="playlistbutton" type="button" class="inputbutton" onclick="togglePlaylist(false);"> </div>
+			</form>
+			
+		</div>
+		<div id="content"><div id="innercontent">
+		
+			<div id="results">
+			
+			</div>
+			
+			<div id="playlist">
+				<img src="http://htmldog.com/r/book.jpg" />
+			</div>
+			
+			<div id="clip">
+				<div id="clip_left">
+					<div id="clipinfo">
+					<div id="prev" onClick="mPlayer.prev(); setNN(mPlayer.getArtist(true), mPlayer.getName(true), mPlayer.getId(true)); sPLP(true);"> &lt;prev </div>
+						<span id="plp" class="plp_normal">Play</span> 
+					<div id="fwd" onClick="mPlayer.fwd(); setNN(mPlayer.getArtist(true), mPlayer.getName(true), mPlayer.getId(true)); sPLP(true);"> next&gt; </div>
+					<div id="next" name="next" onClick="mPlayer.next();">skip&gt;&gt;</div>
+						
+
+						<div class="clipname" id="clipname">&nbsp;</div>
+						<div class="clipprev" id="clipprev">&nbsp;</div>
+						<!-- ********************************************
+						for song title, we can let them highlight what they want to search for and it does it automatic as soon as 
+						they let go of the mouse button from highlighting
+						********************************************-->
+
+					</div>
+
+				</div>
+				
+				<div id="clip_right">
+					<div id="clipextra">		
+						
+						<div id="like">&nbsp;</div>		
+						
+						
+						<div onClick="changeMode(null);" id="mode">
+						&nbsp
+						</div>
+						<div id="dload">
+							<div id="mp3">MP3</div>
+							<div id="mp4">MP4</div>
+						</div>
+						<span id="progress"> &nbsp; </span>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div id="player">
+
+			</div>
+
+		</div></div>
+
+		<div id="footer">
+		
+		
+		
+		
+
+		
+		<!--
+		<div>-debug-</div>
+		<span onclick="togglePlaylist(false);">-p-&nbsp;</span>
+		<span onclick="favorites.dump();">-fav-&nbsp;</span>
+		<div onclick="air.NativeApplication.nativeApplication.exit();">-x-&nbsp;</div>
+		<span onclick="togglePlaylist(false);">-tab-&nbsp;</span>
+		<span onclick="mPlayer.dump('a');";>-artist-&nbsp;</span>
+		<span onclick="mPlayer.dump('ha');";>-ha-&nbsp;</span>
+		<span onclick="mPlayer.dump('r');">-related-&nbsp;</span>
+		<span onclick="mPlayer.dump('hr');">-hr-&nbsp;</span>
+		-->
+		</div>
+		<div style="background-color:red">
+		<span onclick="mPlayer.dump('a');";>-artist-&nbsp;</span>
+		<span onclick="mPlayer.dump('ha');";>-ha-&nbsp;</span>
+		<span onclick="mPlayer.dump('r');">-related-&nbsp;</span>
+		<span onclick="mPlayer.dump('hr');">-hr-&nbsp;</span>
+		<span onclick="favorites.dump();">-fav-&nbsp;</span>
+		</div>
+	</div>
+ 
+	
+</body> 
+
+</html>
